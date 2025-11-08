@@ -1,38 +1,66 @@
-import React, { useState } from 'react';
-import { X, Calendar, Clock, FileText, Car, Wrench } from 'lucide-react';
+import React, { useState, ChangeEvent } from "react";
+import { X, Calendar, Clock, FileText, Car, Wrench } from "lucide-react";
 
-const BookNowModal = ({ isOpen, onClose, onSubmit, vehicle }) => {
-  const [formData, setFormData] = useState({
-    serviceType: '',
-    scheduledDate: '',
-    scheduledTime: '',
-    notes: ''
+interface Vehicle {
+  id: string | number;
+  model: string;
+  plate: string;
+}
+
+interface FormDataType {
+  serviceType: string;
+  scheduledDate: string;
+  scheduledTime: string;
+  notes: string;
+}
+
+interface BookNowModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (data: any) => void;
+  vehicle?: Vehicle;
+}
+
+const BookNowModal: React.FC<BookNowModalProps> = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  vehicle,
+}) => {
+  const [formData, setFormData] = useState<FormDataType>({
+    serviceType: "",
+    scheduledDate: "",
+    scheduledTime: "",
+    notes: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = () => {
     if (!formData.serviceType || !formData.scheduledDate || !formData.scheduledTime) {
-      alert('Please fill in all required fields');
+      alert("Please fill in all required fields");
       return;
     }
+
     onSubmit({
       ...formData,
       vehicleId: vehicle?.id,
       vehicleModel: vehicle?.model,
-      vehiclePlate: vehicle?.plate
+      vehiclePlate: vehicle?.plate,
     });
+
     setFormData({
-      serviceType: '',
-      scheduledDate: '',
-      scheduledTime: '',
-      notes: ''
+      serviceType: "",
+      scheduledDate: "",
+      scheduledTime: "",
+      notes: "",
     });
+
     onClose();
   };
 
@@ -126,7 +154,7 @@ const BookNowModal = ({ isOpen, onClose, onSubmit, vehicle }) => {
               name="notes"
               value={formData.notes}
               onChange={handleChange}
-              rows="3"
+              rows={3}
               className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all resize-none bg-white/50"
               placeholder="Additional notes or concerns (Optional)"
             />
@@ -149,36 +177,6 @@ const BookNowModal = ({ isOpen, onClose, onSubmit, vehicle }) => {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes scaleIn {
-          from {
-            opacity: 0;
-            transform: scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.2s ease-out;
-        }
-
-        .animate-scaleIn {
-          animation: scaleIn 0.2s ease-out;
-        }
-      `}</style>
     </div>
   );
 };

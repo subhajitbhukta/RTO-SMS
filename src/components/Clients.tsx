@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import { Mail, Phone } from "lucide-react";
-import ViewToggle from "./shared/ViewToggle";
-import CardGrid from "./shared/CardGrid";
-import DataTable from "./shared/DataTable";
+import ViewToggle from "./shared/ViewToggle.tsx";
+import CardGrid from "./shared/CardGrid.tsx";
+import DataTable from "./shared/DataTable.tsx";
 
-const Clients = ({ clients }) => {
-  const [viewMode, setViewMode] = useState("card");
+interface Client {
+  id: string | number;
+  name: string;
+  email?: string;
+  phone?: string;
+  vehicles?: number;
+}
+
+interface ClientsProps {
+  clients: Client[];
+}
+
+const Clients: React.FC<ClientsProps> = ({ clients }) => {
+  const [viewMode, setViewMode] = useState<"card" | "table">("card");
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filter by search term
@@ -17,7 +29,7 @@ const Clients = ({ clients }) => {
   );
 
   // ========== CARD VIEW ==========
-  const renderCard = (client) => (
+  const renderCard = (client: Client) => (
     <div
       key={client.id}
       className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-all"
@@ -28,9 +40,7 @@ const Clients = ({ clients }) => {
         </div>
         <div>
           <h3 className="text-gray-900 font-bold text-lg">{client.name}</h3>
-          <p className="text-gray-500 text-sm">
-            {client.vehicles || 0} Vehicles
-          </p>
+          <p className="text-gray-500 text-sm">{client.vehicles || 0} Vehicles</p>
         </div>
       </div>
 
@@ -71,17 +81,14 @@ const Clients = ({ clients }) => {
   // ========== TABLE VIEW ==========
   const columns = ["Name", "Email", "Phone", "Vehicles"];
 
-  const renderRow = (client) => (
+  const renderRow = (client: Client) => (
     <tr key={client.id} className="hover:bg-gray-50">
       <td className="px-6 py-4 text-sm font-medium text-gray-900">
         {client.name}
       </td>
       <td className="px-6 py-4 text-sm text-gray-700">
         {client.email ? (
-          <a
-            href={`mailto:${client.email}`}
-            className="text-blue-600 hover:underline"
-          >
+          <a href={`mailto:${client.email}`} className="text-blue-600 hover:underline">
             {client.email}
           </a>
         ) : (
@@ -102,9 +109,7 @@ const Clients = ({ clients }) => {
           <span className="text-gray-400">N/A</span>
         )}
       </td>
-      <td className="px-6 py-4 text-sm text-gray-700">
-        {client.vehicles || 0}
-      </td>
+      <td className="px-6 py-4 text-sm text-gray-700">{client.vehicles || 0}</td>
     </tr>
   );
 

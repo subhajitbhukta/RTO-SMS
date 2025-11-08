@@ -1,32 +1,71 @@
 import React, { useState } from "react";
 import { Users, Car, Bell, AlertCircle } from "lucide-react";
-import StatCard from "./shared/StatCard";
-import ServiceCard from "./shared/ServiceCard";
-import CardGrid from "./shared/CardGrid";
-import DataTable from "./shared/DataTable";
-import ViewToggle from "./shared/ViewToggle";
+import StatCard from "./shared/StatCard.tsx";
+import ServiceCard from "./shared/ServiceCard.tsx";
+import CardGrid from "./shared/CardGrid.tsx";
+import DataTable from "./shared/DataTable.tsx";
+import ViewToggle from "./shared/ViewToggle.tsx";
 import { getDaysUntil } from "./utils/dateUtils";
 
-const Dashboard = ({ stats, services, vehicles, clients }) => {
-  const [viewMode, setViewMode] = useState("card"); // 'card' or 'table'
+// ===== TYPES =====
+type Service = {
+  id: string | number;
+  type: string;
+  nextDue: string;
+  vehicleId: string | number;
+};
 
-  // Recent services (limit 4 or all for table)
+type Vehicle = {
+  id: string | number;
+  model: string;
+  plate: string;
+  clientId: string | number;
+};
+
+type Client = {
+  id: string | number;
+  name: string;
+};
+
+type Stats = {
+  totalClients: number;
+  totalVehicles: number;
+  upcomingServices: number;
+  overdueServices: number;
+};
+
+type DashboardProps = {
+  stats: Stats;
+  services: Service[];
+  vehicles: Vehicle[];
+  clients: Client[];
+};
+
+// ===== COMPONENT =====
+
+const Dashboard: React.FC<DashboardProps> = ({
+  stats,
+  services,
+  vehicles,
+  clients,
+}) => {
+  const [viewMode, setViewMode] = useState<"card" | "table">("card");
+
   const recentServices = services.slice(0, 10);
 
-  // ========== CARD VIEW ==========
-  const renderCard = (service) => (
-    <ServiceCard
-      key={service.id}
-      service={service}
-      vehicles={vehicles}
-      clients={clients}
-    />
-  );
+const renderCard = (service: any) => (
+  <ServiceCard
+    key={service.id}
+    service={service}
+    vehicles={vehicles}
+    clients={clients}
+  />
+);
 
-  // ========== TABLE VIEW ==========
+
   const columns = ["Service", "Vehicle", "Client", "Next Due", "Days Left"];
 
-  const renderRow = (service) => {
+  const renderRow = (service: Service) => {
     const vehicle = vehicles.find((v) => v.id === service.vehicleId);
     const client = clients.find((c) => c.id === vehicle?.clientId);
     const daysLeft = getDaysUntil(service.nextDue);
@@ -35,8 +74,8 @@ const Dashboard = ({ stats, services, vehicles, clients }) => {
       daysLeft < 0
         ? "text-red-600"
         : daysLeft <= 15
-          ? "text-amber-600"
-          : "text-green-600";
+        ? "text-amber-600"
+        : "text-green-600";
 
     return (
       <tr key={service.id} className="hover:bg-gray-50">
@@ -57,7 +96,6 @@ const Dashboard = ({ stats, services, vehicles, clients }) => {
 
   return (
     <div className="space-y-3">
-      {/* ===== STATS SECTION ===== */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           icon={Users}
@@ -85,14 +123,14 @@ const Dashboard = ({ stats, services, vehicles, clients }) => {
         />
       </div>
 
-      {/* ===== RECENT SERVICES SECTION ===== */}
       <div className="bg-white rounded-xl p-3 sm:p-4 md:p-6 border border-gray-200 shadow-sm">
-        <div className="flex  sm:flex-row justify-between items-center mb-3 sm:mb-4 md:mb-6 gap-2 sm:gap-4">
-          <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-900">Recent Services</h2>
+        <div className="flex sm:flex-row justify-between items-center mb-3 sm:mb-4 md:mb-6 gap-2 sm:gap-4">
+          <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-900">
+            Recent Services
+          </h2>
           <ViewToggle viewMode={viewMode} setViewMode={setViewMode} />
         </div>
 
-        {/* CARD OR TABLE VIEW */}
         {viewMode === "card" ? (
           <CardGrid
             items={recentServices}

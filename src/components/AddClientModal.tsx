@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { X, User, Mail, Phone, MapPin } from 'lucide-react';
 
-const AddClientModal = ({ isOpen, onClose, onSubmit }) => {
-  const [formData, setFormData] = useState({
+type FormDataType = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+};
+
+type AddClientModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (data: FormDataType) => void;
+};
+
+const AddClientModal: React.FC<AddClientModalProps> = ({ isOpen, onClose, onSubmit }) => {
+  const [formData, setFormData] = useState<FormDataType>({
     name: '',
     email: '',
     phone: '',
     address: ''
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -30,7 +43,7 @@ const AddClientModal = ({ isOpen, onClose, onSubmit }) => {
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-3 animate-fadeIn">
       <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-sm border border-white/20 animate-scaleIn">
-        {/* Header */}
+
         <div className="flex items-center justify-between p-4 border-b border-gray-200/50">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
@@ -46,7 +59,6 @@ const AddClientModal = ({ isOpen, onClose, onSubmit }) => {
           </button>
         </div>
 
-        {/* Form */}
         <div className="p-4 space-y-3">
           <div className="relative">
             <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -90,13 +102,12 @@ const AddClientModal = ({ isOpen, onClose, onSubmit }) => {
               name="address"
               value={formData.address}
               onChange={handleChange}
-              rows="2"
+              rows={2}
               className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all resize-none bg-white/50"
               placeholder="Address (Optional)"
             />
           </div>
 
-          {/* Actions */}
           <div className="flex gap-2 pt-2">
             <button
               onClick={onClose}

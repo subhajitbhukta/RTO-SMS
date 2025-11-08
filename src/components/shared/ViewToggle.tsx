@@ -1,7 +1,14 @@
-// components/common/ViewToggle.jsx
+import React from "react";
 import { LayoutGrid, Table } from "lucide-react";
 
-const ViewToggle = ({ viewMode, setViewMode }) => (
+type ViewMode = "card" | "table";
+
+type ViewToggleProps = {
+  viewMode: ViewMode;
+  setViewMode: (mode: ViewMode) => void;
+};
+
+const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, setViewMode }) => (
   <div className="inline-flex rounded-lg border border-gray-300 bg-white">
     <button
       onClick={() => setViewMode("card")}
@@ -14,6 +21,7 @@ const ViewToggle = ({ viewMode, setViewMode }) => (
       <LayoutGrid size={18} />
       Card
     </button>
+
     <button
       onClick={() => setViewMode("table")}
       className={`px-4 py-2 rounded-r-lg flex items-center gap-2 transition-colors ${

@@ -1,28 +1,35 @@
-import { useState } from "react";
-import { Car, Calendar } from "lucide-react";
-import ViewToggle from "./shared/ViewToggle";
-import CardGrid from "./shared/CardGrid";
-import DataTable from "./shared/DataTable";
-import BookNowModal from "./BookNowModal"; // ✅ import modal
+import { useState } from "react"
+import { Car, Calendar } from "lucide-react"
+import ViewToggle from "./shared/ViewToggle"
+import CardGrid from "./shared/CardGrid"
+import DataTable from "./shared/DataTable"
+import BookNowModal from "./BookNowModal.tsx"
 
-const Vehicles = ({ vehicles, clients, services }) => {
-  const [viewMode, setViewMode] = useState("card");
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+interface VehiclesProps {
+  vehicles: any[]
+  clients: any[]
+  services: any[]
+}
 
-  const handleBookNow = (vehicle) => {
-    setSelectedVehicle(vehicle);
-    setIsModalOpen(true);
-  };
+const Vehicles: React.FC<VehiclesProps> = ({ vehicles, clients, services }) => {
+  const [viewMode, setViewMode] = useState<"card" | "table">("card")
+  const [selectedVehicle, setSelectedVehicle] = useState<any>(null)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-  const handleSubmitBooking = (bookingData) => {
-    console.log("New Booking:", bookingData);
-    // 🔹 Here you can POST bookingData to your API or backend
-  };
+  const handleBookNow = (vehicle: any) => {
+    setSelectedVehicle(vehicle)
+    setIsModalOpen(true)
+  }
 
-  const renderCard = (vehicle) => {
-    const client = clients.find((c) => c.id === vehicle.clientId);
-    const vehicleServices = services.filter((s) => s.vehicleId === vehicle.id);
+  const handleSubmitBooking = (bookingData: any) => {
+    console.log("New Booking:", bookingData)
+    // POST to backend later
+  }
+
+  const renderCard = (vehicle: any) => {
+    const client = clients.find((c) => c.id === vehicle.clientId)
+    const vehicleServices = services.filter((s) => s.vehicleId === vehicle.id)
+
     return (
       <div key={vehicle.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
         <div className="p-4 border-b border-gray-200">
@@ -56,14 +63,15 @@ const Vehicles = ({ vehicles, clients, services }) => {
           </button>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
-  const columns = ["Vehicle", "Plate", "Owner", "Year", "Services", "Action"];
+  const columns = ["Vehicle", "Plate", "Owner", "Year", "Services", "Action"]
 
-  const renderRow = (vehicle) => {
-    const client = clients.find((c) => c.id === vehicle.clientId);
-    const vehicleServices = services.filter((s) => s.vehicleId === vehicle.id);
+  const renderRow = (vehicle: any) => {
+    const client = clients.find((c) => c.id === vehicle.clientId)
+    const vehicleServices = services.filter((s) => s.vehicleId === vehicle.id)
+
     return (
       <tr key={vehicle.id} className="hover:bg-gray-50">
         <td className="px-6 py-4 whitespace-nowrap flex items-center gap-3">
@@ -90,8 +98,8 @@ const Vehicles = ({ vehicles, clients, services }) => {
           </button>
         </td>
       </tr>
-    );
-  };
+    )
+  }
 
   return (
     <div className="p-2">
@@ -111,7 +119,6 @@ const Vehicles = ({ vehicles, clients, services }) => {
         <DataTable columns={columns} data={vehicles} renderRow={renderRow} />
       )}
 
-      {/* Modal */}
       <BookNowModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -119,7 +126,7 @@ const Vehicles = ({ vehicles, clients, services }) => {
         vehicle={selectedVehicle}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Vehicles;
+export default Vehicles
