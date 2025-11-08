@@ -20,7 +20,7 @@ const data: Renewal[] = [
     client: "John Doe",
     nextDue: "2026-03-15",
     cost: 150,
-    status: "Completed",
+    status: "Upcoming",
     documents: ["puc-certificate.pdf"],
   },
   {
