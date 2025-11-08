@@ -69,7 +69,7 @@ const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSu
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-3">
       <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto border border-white/20 animate-scaleIn">
-        
+
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200/50 sticky top-0 bg-white/95 backdrop-blur-xl">
           <div className="flex items-center gap-2">
@@ -115,18 +115,23 @@ const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSu
           <input name="engine_no" placeholder="Engine No" onChange={handleChange}
             className="w-full pl-3 pr-3 py-2.5 text-sm border border-gray-200 rounded-xl" />
 
-          {/* reg_date */}
-          <div className="relative">
-            <Calendar className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input name="reg_date" type="date" onChange={handleChange}
-              className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-xl" />
-          </div>
 
           <input name="manufacturar" placeholder="Manufacturer" onChange={handleChange}
             className="w-full pl-3 pr-3 py-2.5 text-sm border border-gray-200 rounded-xl" />
 
-          <input name="validity" type="date" onChange={handleChange}
-            className="w-full pl-3 pr-3 py-2.5 text-sm border border-gray-200 rounded-xl" />
+          <label className="block ml-2 mb-1 text-sm font-medium text-gray-700">
+            Registration Date
+          </label>
+          <div className="relative">
+            <Calendar className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <input
+              name="reg_date"
+              type="date"
+              onChange={handleChange}
+              className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-xl"
+            />
+          </div>
+
 
           <input name="name" placeholder="Owner Name" onChange={handleChange}
             className="w-full pl-3 pr-3 py-2.5 text-sm border border-gray-200 rounded-xl" />
