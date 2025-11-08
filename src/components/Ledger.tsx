@@ -18,7 +18,7 @@ export type LedgerEntry = {
   completedDate: string
   completedBy: string
   amount: number
-  paymentStatus: 'Paid' | 'Pending' | 'Partial'
+  paymentStatus: 'Paid' | 'Due' | 'Partial'
   paymentMethod: string
   invoiceNumber: string
   documents: string[]
@@ -70,7 +70,7 @@ const DataTable = <T,>({
 // CONSTANTS
 const PAYMENT_STATUS_COLORS: Record<LedgerEntry['paymentStatus'], string> = {
   Paid: 'bg-green-100 text-green-700',
-  Pending: 'bg-yellow-100 text-yellow-700',
+  Due: 'bg-yellow-100 text-yellow-700',
   Partial: 'bg-orange-100 text-orange-700',
 }
 
@@ -97,7 +97,7 @@ const INITIAL_LEDGER_DATA: LedgerEntry[] = [
     completedDate: '2024-11-08',
     completedBy: 'Admin User',
     amount: 12000,
-    paymentStatus: 'Pending',
+    paymentStatus: 'Due',
     paymentMethod: 'Bank Transfer',
     invoiceNumber: 'INV-2024-002',
     documents: ['Insurance Policy', 'Claim Form'],
@@ -173,7 +173,7 @@ const Ledger: React.FC = () => {
     .filter(e => e.paymentStatus === 'Paid')
     .reduce((sum, e) => sum + e.amount, 0)
   const pendingAmount = filteredData
-    .filter(e => e.paymentStatus === 'Pending')
+    .filter(e => e.paymentStatus === 'Due')
     .reduce((sum, e) => sum + e.amount, 0)
 
   const PaymentBadge: React.FC<{ status: LedgerEntry['paymentStatus'] }> = ({
@@ -221,7 +221,7 @@ const Ledger: React.FC = () => {
           <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border-l-4 border-yellow-600">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs sm:text-sm text-gray-600 mb-1">Pending</p>
+                <p className="text-xs sm:text-sm text-gray-600 mb-1">Due</p>
                 <p className="text-xl sm:text-2xl font-bold text-gray-900">
                   ₹{pendingAmount.toLocaleString()}
                 </p>
