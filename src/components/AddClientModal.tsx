@@ -41,8 +41,8 @@ const AddClientModal: React.FC<AddClientModalProps> = ({ isOpen, onClose, onSubm
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-3 animate-fadeIn">
-      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-sm border border-white/20 animate-scaleIn">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[1000] p-3">
+      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-sm border border-white/20">
 
         <div className="flex items-center justify-between p-4 border-b border-gray-200/50">
           <div className="flex items-center gap-2">

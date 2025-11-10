@@ -16,6 +16,7 @@ import {
 import { getDaysUntil } from './components/utils/dateUtils'
 import WorkFlows from './components/WorkFlows.tsx'
 import Renewals from './components/Renwals.tsx'
+import ShowEnquireModal from './components/ShowEnquireModal.tsx'
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('dashboard')
@@ -24,6 +25,7 @@ const App: React.FC = () => {
   const [services] = useState<any[]>(initialServices)
   const [showClientModal, setShowClientModal] = useState<boolean>(false)
   const [showVehicleModal, setShowVehicleModal] = useState<boolean>(false)
+  const [showEnquireModal, setShowEnquireModal] = useState<boolean>(false)
 
   const stats = useMemo(() => ({
     totalClients: clients.length,
@@ -52,6 +54,10 @@ const App: React.FC = () => {
     setShowVehicleModal(false)
   }
 
+  const handdleEnqurieClick = () => {
+    setShowEnquireModal(true)
+  }
+
   return (
     <>
       <div className="flex h-screen bg-gray-50">
@@ -63,7 +69,7 @@ const App: React.FC = () => {
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* Header */}
-          <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4">
+          <header className="bg-white border-b border-gray-200 px-6 sm:px-6 py-4">
             <div className=" flex items-center sm:flex-row sm:items-center sm:justify-between gap-6">
               <div className="flex items-start sm:items-center gap-3 flex-wrap">
                 <div className="">
@@ -76,20 +82,29 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div className="flex flex-row gap-2 sm:gap-3 w-full sm:w-auto">
-                <button
+                {/* <button
                   onClick={() => setShowClientModal(true)}
                   className="flex items-center justify-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all text-[11px] sm:text-base w-full sm:w-auto"
-                >
-                  {/* <Plus className="w-4 h-4" /> */}
-                  Add Client
+                > */}
+                {/* <Plus className="w-4 h-4" /> */}
+                {/* Add Client
                 </button>
                 <button
                   onClick={() => setShowVehicleModal(true)}
                   className="flex items-center justify-center gap-2 bg-green-600 text-white px-3 py-2 rounded-lg font-medium hover:bg-green-700 transition-all text-[10px] sm:text-base w-full sm:w-auto"
+                > */}
+                {/* <Plus className="w-4 h-4" /> */}
+                {/* Add Vehicle
+                </button> */}
+
+                <button
+                  onClick={() => handdleEnqurieClick(true)}
+                  className="flex items-center justify-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all text-[12px] sm:text-base w-full sm:w-auto"
                 >
                   {/* <Plus className="w-4 h-4" /> */}
-                  Add Vehicle
+                  Service Enquiry
                 </button>
+
               </div>
             </div>
           </header>
@@ -129,6 +144,10 @@ const App: React.FC = () => {
           onClose={() => setShowVehicleModal(false)}
           onSubmit={handleAddVehicle}
           clients={clients}
+        />
+        <ShowEnquireModal
+          isOpen={showEnquireModal}
+          onClose={() => setShowEnquireModal(false)}
         />
       </div>
     </>

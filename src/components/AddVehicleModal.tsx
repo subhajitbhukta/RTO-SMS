@@ -1,11 +1,6 @@
 import React, { useState, ChangeEvent } from 'react'
 import { X, Car, Calendar, Hash, User } from 'lucide-react'
 
-type Client = {
-  id: string | number
-  name: string
-}
-
 type FormDataType = {
   clientId: string
   vehicle_no: string
@@ -22,10 +17,18 @@ type AddVehicleModalProps = {
   isOpen: boolean
   onClose: () => void
   onSubmit: (data: FormDataType) => void
-  clients: Client[]
 }
 
-const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSubmit, clients }) => {
+// Static client data
+const staticClients = [
+  { id: '1', name: 'John Doe' },
+  { id: '2', name: 'Jane Smith' },
+  { id: '3', name: 'Robert Johnson' },
+  { id: '4', name: 'Emily Davis' },
+  { id: '5', name: 'Michael Brown' }
+]
+
+const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSubmit }) => {
   const [formData, setFormData] = useState<FormDataType>({
     clientId: '',
     vehicle_no: '',
@@ -67,7 +70,7 @@ const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSu
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-3">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-3" style={{ zIndex: 9999 }}>
       <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto border border-white/20 animate-scaleIn">
 
         {/* Header */}
@@ -88,18 +91,8 @@ const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSu
 
           {/* CLIENT */}
           <div className="relative">
-            <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10" />
-            <select
-              name="clientId"
-              value={formData.clientId}
-              onChange={handleChange}
-              className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-xl"
-            >
-              <option value="">Select Client *</option>
-              {clients.map((client) => (
-                <option key={client.id} value={client.id}>{client.name}</option>
-              ))}
-            </select>
+            <input name="vehicle_name" type="text" placeholder="Vehicle name" onChange={handleChange}
+              className="w-full pl-3 pr-3 py-2.5 text-sm border border-gray-200 rounded-xl" />
           </div>
 
           {/* vehicle_no */}
