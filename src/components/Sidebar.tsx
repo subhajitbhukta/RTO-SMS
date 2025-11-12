@@ -1,4 +1,4 @@
-import { Home, Bell, Users, Car, LogOut, Menu, X, Layers, History, WalletMinimal } from 'lucide-react'
+import { Home, Bell, Users, Car, LogOut, Menu, X, Layers, History, WalletMinimal, HandHelping } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 interface SidebarProps {
@@ -12,12 +12,15 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
 
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home },
-    { id: 'workflows', label: 'Workflows', icon: Layers },
-    { id: 'renewals', label: 'Renewals', icon: Bell },
-    { id: 'reminders', label: 'Reminders', icon: History },
-    { id: 'ledger', label: 'Ledger', icon: WalletMinimal },
-    { id: 'clients', label: 'Clients', icon: Users },
-    { id: 'vehicles', label: 'Vehicles', icon: Car },
+    {id: 'Entries' , label: 'Entries', icon: Users},
+    {id: 'Enquiries' , label: 'Enquiries', icon: Bell},
+    {id: 'services' , label: 'Services', icon: HandHelping },
+    // { id: 'workflows', label: 'Workflows', icon: Layers },
+    // { id: 'renewals', label: 'Renewals', icon: Bell },
+    // { id: 'reminders', label: 'Reminders', icon: History },
+    // { id: 'ledger', label: 'Ledger', icon: WalletMinimal },
+    // { id: 'clients', label: 'Clients', icon: Users },
+    // { id: 'vehicles', label: 'Vehicles', icon: Car },
   ]
 
   useEffect(() => {
@@ -68,9 +71,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`flex flex-col items-center justify-center px-3 py-2 transition-all ${
-                    activeTab === item.id ? 'text-blue-600' : 'text-gray-600'
-                  }`}
+                  className={`flex flex-col items-center justify-center px-3 py-2 transition-all ${activeTab === item.id ? 'text-blue-600' : 'text-gray-600'
+                    }`}
                 >
                   <Icon className={`w-6 h-6 ${activeTab === item.id ? 'stroke-2' : ''}`} />
                   <span className="text-xs mt-1 font-medium">{item.label}</span>
@@ -97,9 +99,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
 
         {/* Slide-out Menu */}
         <div
-          className={`fixed top-0 right-0 h-full w-64 bg-white bg-opacity-70 backdrop-blur-xl shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
-            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+          className={`fixed top-0 right-0 h-full w-64 bg-white bg-opacity-70 backdrop-blur-xl shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
           style={{ backdropFilter: 'blur(20px)' }}
         >
           <div className="flex flex-col h-full">
@@ -130,11 +131,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                      activeTab === item.id
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${activeTab === item.id
                         ? 'bg-blue-50 text-blue-600 font-semibold'
                         : 'text-gray-700 hover:bg-gray-50'
-                    }`}
+                      }`}
                   >
                     <Icon className="w-5 h-5" />
                     {item.label}
@@ -181,11 +181,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                activeTab === item.id
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${activeTab === item.id
                   ? 'bg-blue-50 text-blue-600 font-semibold'
                   : 'text-gray-700 hover:bg-gray-50'
-              }`}
+                }`}
             >
               <Icon className="w-5 h-5" />
               {item.label}

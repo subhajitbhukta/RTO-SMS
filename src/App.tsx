@@ -5,8 +5,8 @@ import Dashboard from './components/Dashboard.tsx'
 import Reminders from './components/Reminders.tsx'
 import Clients from './components/Clients.tsx'
 import Vehicles from './components/Vehicles.tsx'
-import AddClientModal from './components/AddClientModal.tsx'
-import AddVehicleModal from './components/AddVehicleModal.tsx'
+// import AddClientModal from './components/AddClientModal.tsx'
+// import AddVehicleModal from './components/AddVehicleModal.tsx'
 import Ledger from './components/Ledger.tsx'
 import {
   initialClients,
@@ -17,6 +17,9 @@ import { getDaysUntil } from './components/utils/dateUtils'
 import WorkFlows from './components/WorkFlows.tsx'
 import Renewals from './components/Renwals.tsx'
 import ShowEnquireModal from './components/ShowEnquireModal.tsx'
+import Enquires from './components/Enquires.tsx'
+import Entries from './components/Entries.tsx'
+import Services from './components/ServicesDemo.tsx'
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('dashboard')
@@ -41,7 +44,10 @@ const App: React.FC = () => {
     { id: 'renewals', label: 'Renewals' },
     { id: 'ledger', label: 'Ledger' },
     { id: 'clients', label: 'Clients' },
-    { id: 'vehicles', label: 'Vehicles' }
+    { id: 'vehicles', label: 'Vehicles' },
+    { id: 'Enquiries', label: 'Enquiries' },
+    { id: 'Entries', label: 'Entries' },
+    { id: 'services', label: 'Services' },
   ]
 
   const handleAddClient = (newClient: any) => {
@@ -54,9 +60,10 @@ const App: React.FC = () => {
     setShowVehicleModal(false)
   }
 
-  const handdleEnqurieClick = () => {
-    setShowEnquireModal(true)
+  const handleEnquiryClick = (): void => {
+    setActiveTab('Enquiries')
   }
+
 
   return (
     <>
@@ -98,7 +105,7 @@ const App: React.FC = () => {
                 </button> */}
 
                 <button
-                  onClick={() => handdleEnqurieClick(true)}
+                  onClick={() => handleEnquiryClick(true)}
                   className="flex items-center justify-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all text-[12px] sm:text-base w-full sm:w-auto"
                 >
                   {/* <Plus className="w-4 h-4" /> */}
@@ -124,7 +131,9 @@ const App: React.FC = () => {
             {activeTab === 'vehicles' && <Vehicles vehicles={vehicles} clients={clients} services={services} />}
             {activeTab === 'ledger' && <Ledger />}
             {activeTab === 'renewals' && <Renewals />}
-
+            {activeTab === 'Enquiries' && <Enquires />}
+            {activeTab === 'Entries' && <Entries />}
+            {activeTab === 'services' && <Services />}
           </main>
         </div>
 
@@ -134,7 +143,7 @@ const App: React.FC = () => {
         </div>
 
         {/* Modals */}
-        <AddClientModal
+        {/* <AddClientModal
           isOpen={showClientModal}
           onClose={() => setShowClientModal(false)}
           onSubmit={handleAddClient}
@@ -144,7 +153,7 @@ const App: React.FC = () => {
           onClose={() => setShowVehicleModal(false)}
           onSubmit={handleAddVehicle}
           clients={clients}
-        />
+        /> */}
         <ShowEnquireModal
           isOpen={showEnquireModal}
           onClose={() => setShowEnquireModal(false)}
