@@ -19,7 +19,7 @@ const sampleServices = [
     quotation: "Thank you for choosing our service.",
     dateAdded: "2024-11-01",
     status: "pending",
-    paymentStatus: "Awaiting Credits",
+    paymentStatus: "Credited",
     amountPaid: 0
   },
   {
