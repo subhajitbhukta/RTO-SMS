@@ -1,4 +1,4 @@
-import { Home, Bell, Users, Car, LogOut, Menu, X, Layers, History, WalletMinimal, HandHelping } from 'lucide-react'
+import { Home, Bell, Users, Car, LogOut, Menu, X, Layers, History, WalletMinimal, HandHelping, CreditCard } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 interface SidebarProps {
@@ -15,10 +15,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
     {id: 'Entries' , label: 'Entries', icon: Users},
     {id: 'Enquiries' , label: 'Enquiries', icon: Bell},
     {id: 'services' , label: 'Services', icon: HandHelping },
+    {id: 'payment' , label: 'Payment', icon: CreditCard  },
     // { id: 'workflows', label: 'Workflows', icon: Layers },
     // { id: 'renewals', label: 'Renewals', icon: Bell },
     // { id: 'reminders', label: 'Reminders', icon: History },
-    // { id: 'ledger', label: 'Ledger', icon: WalletMinimal },
+    { id: 'ledger', label: 'Ledger', icon: WalletMinimal },
     // { id: 'clients', label: 'Clients', icon: Users },
     // { id: 'vehicles', label: 'Vehicles', icon: Car },
   ]

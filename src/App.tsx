@@ -20,6 +20,7 @@ import ShowEnquireModal from './components/ShowEnquireModal.tsx'
 import Enquires from './components/Enquires.tsx'
 import Entries from './components/Entries.tsx'
 import Services from './components/ServicesDemo.tsx'
+import Payment from './components/Payment.tsx'
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('dashboard')
@@ -48,6 +49,7 @@ const App: React.FC = () => {
     { id: 'Enquiries', label: 'Enquiries' },
     { id: 'Entries', label: 'Entries' },
     { id: 'services', label: 'Services' },
+    { id: 'payment', label: 'Payment' }
   ]
 
   const handleAddClient = (newClient: any) => {
@@ -104,13 +106,13 @@ const App: React.FC = () => {
                 {/* Add Vehicle
                 </button> */}
 
-                <button
+                {/* <button
                   onClick={() => handleEnquiryClick(true)}
                   className="flex items-center justify-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all text-[12px] sm:text-base w-full sm:w-auto"
                 >
-                  {/* <Plus className="w-4 h-4" /> */}
+                  <Plus className="w-4 h-4" />
                   Service Enquiry
-                </button>
+                </button> */}
 
               </div>
             </div>
@@ -134,6 +136,7 @@ const App: React.FC = () => {
             {activeTab === 'Enquiries' && <Enquires />}
             {activeTab === 'Entries' && <Entries />}
             {activeTab === 'services' && <Services />}
+            {activeTab === 'payment' && <Payment/>}
           </main>
         </div>
 
