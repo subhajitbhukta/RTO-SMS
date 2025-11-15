@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { FileText, X, Edit2, DollarSign, Check, Save } from "lucide-react"
+import { FileText, X, Edit2, IndianRupee, Check, Save } from "lucide-react"
 
 interface Option {
     id: string
@@ -80,7 +80,7 @@ const EstimateModal = ({ isOpen, onClose, enquiry, onSave }: any) => {
                                     <p className="text-sm font-medium text-slate-700">{estimate.serviceName}</p>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <DollarSign size={18} className="text-slate-400" />
+                                    <IndianRupee size={18} className="text-slate-400" />
                                     <input
                                         type="number"
                                         min="0"
@@ -98,7 +98,7 @@ const EstimateModal = ({ isOpen, onClose, enquiry, onSave }: any) => {
                     <div className="mt-6 p-4 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl border-2 border-indigo-200">
                         <div className="flex items-center justify-between">
                             <span className="text-lg font-bold text-slate-800">Total</span>
-                            <span className="text-2xl font-bold text-indigo-600">${total.toFixed(2)}</span>
+                            <span className="text-2xl font-bold text-indigo-600">₹{total.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>
@@ -227,7 +227,7 @@ const Estimation: React.FC<EstimationProps> = ({ enquiries, onSaveEstimates }) =
                                         </>
                                     ) : (
                                         <div className="text-center py-8">
-                                            <DollarSign className="mx-auto mb-3 text-slate-300" size={48} />
+                                            <IndianRupee className="mx-auto mb-3 text-slate-300" size={48} />
                                             <p className="text-slate-600 font-medium mb-2">No prices set yet</p>
                                             <p className="text-slate-500 text-sm mb-4">Click "Add Prices" to set service prices</p>
                                         </div>

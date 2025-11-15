@@ -124,7 +124,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, title, message }: any) 
               onClick={onConfirm}
               className="flex-1 px-4 py-2.5 rounded-lg bg-gradient-to-r from-indigo-500 to-indigo-600 text-white text-sm font-semibold hover:from-indigo-600 hover:to-indigo-700 transition-all shadow-md"
             >
-              Yes, Complete
+              Yes
             </button>
           </div>
         </div>
@@ -231,10 +231,10 @@ const CreateServiceModal = ({ isOpen, onClose, enquiry, onSubmit }: any) => {
 
   const handleUploadComplete = () => {
     const allUploaded = documents.every(doc => doc.file)
-    if (!allUploaded) {
-      alert("Please upload all required documents")
-      return
-    }
+    // if (!allUploaded) {
+    //   alert("Please upload all required documents")
+    //   return
+    // }
     setShowConfirmation(true)
   }
 
@@ -392,7 +392,7 @@ const CreateServiceModal = ({ isOpen, onClose, enquiry, onSubmit }: any) => {
             </button>
             <button
               onClick={handleUploadComplete}
-              disabled={uploadedCount !== documents.length || documents.length === 0}
+              // disabled={uploadedCount !== documents.length || documents.length === 0}
               className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-indigo-500 to-indigo-600 text-white text-sm font-semibold hover:from-indigo-600 hover:to-indigo-700 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <FileCheck size={18} />
@@ -406,8 +406,8 @@ const CreateServiceModal = ({ isOpen, onClose, enquiry, onSubmit }: any) => {
         isOpen={showConfirmation}
         onClose={() => setShowConfirmation(false)}
         onConfirm={handleConfirmComplete}
-        title="Mark Evaluation Complete"
-        message="Are you sure you want to mark this evaluation as complete?"
+        title="Want to Evaluate"
+        // message="If Want Evaluate Click yes"
       />
     </>
   )

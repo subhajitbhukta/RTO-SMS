@@ -151,7 +151,7 @@ const ServiceDetails = ({ selectedService, mainTab, setMainTab, calculateSubtota
       {/* Service Table */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4">Service Breakdown</h3>
-        <div className="bg-white rounded-lg border overflow-hidden shadow-sm">
+        <div className="bg-white rounded-lg border border-slate-300 overflow-hidden shadow-sm">
           <table className="w-full">
             <thead className="bg-slate-100">
               <tr>
@@ -172,10 +172,10 @@ const ServiceDetails = ({ selectedService, mainTab, setMainTab, calculateSubtota
               ))}
             </tbody>
           </table>
-          <div className="bg-slate-50 border-t p-4 space-y-2">
+          <div className="bg-slate-50 border-t border-slate-300 p-4 space-y-2">
             <div className="flex justify-between text-sm"><span>Subtotal</span><span className="font-medium">₹{calculateSubtotal().toFixed(2)}</span></div>
             <div className="flex justify-between text-sm"><span>Tax (18% GST)</span><span className="font-medium">₹{calculateTax().toFixed(2)}</span></div>
-            <div className="flex justify-between pt-2 border-t"><span className="font-semibold">Total</span><span className="text-xl font-bold text-blue-600">₹{totals.total.toFixed(2)}</span></div>
+            <div className="flex justify-between pt-2 border-t border-slate-300"><span className="font-semibold">Total</span><span className="text-xl font-bold text-blue-600">₹{totals.total.toFixed(2)}</span></div>
           </div>
         </div>
       </div>
@@ -183,7 +183,7 @@ const ServiceDetails = ({ selectedService, mainTab, setMainTab, calculateSubtota
       {/* Payment Status */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4">Payment Status</h3>
-        <div className="bg-white rounded-lg border p-6 shadow-sm">
+        <div className="bg-white rounded-lg border border-slate-300 p-6 shadow-sm">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <div className="flex items-center gap-3 mb-2">

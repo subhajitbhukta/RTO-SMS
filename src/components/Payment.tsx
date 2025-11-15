@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Clock, AlertCircle, CheckCircle, Eye, X, Calendar, User, Car, DollarSign, FileText } from "lucide-react";
+import { Clock, AlertCircle, CheckCircle, Eye, X, Calendar, User, Car, DollarSign, FileText, IndianRupee } from "lucide-react";
 
 const dummyPayments = [
     {
@@ -355,7 +355,7 @@ const PaymentManagement = () => {
                                 </div>
                             </div>
                             <div className="bg-slate-50 rounded-lg p-4 border">
-                                <h3 className="font-semibold mb-3 flex items-center gap-2"><DollarSign className="w-5 h-5" /> Manual Adjustments</h3>
+                                <h3 className="font-semibold mb-3 flex items-center gap-2"><IndianRupee  className="w-5 h-5" /> Manual Adjustments</h3>
                                 <div className="space-y-3">
                                     <div>
                                         <label className="text-sm font-medium text-slate-700 block mb-1">Total Amount (INR)</label>

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import { ChevronDown, X, Search, Upload, FileText, Plus, Check, MoreVertical, Edit, FileCheck, Trash2, ArrowLeft } from "lucide-react"
-
+import { AddClientPopup } from "./AddClientPopup"
+import { AddVehiclePopup } from "./VehiclePopup"
 interface Option {
   id: string
   label: string
@@ -360,8 +361,6 @@ export const EnquireManagement = ({ editMode = false, editData = null, onSaveCom
     { id: "1", name: "Driving License", file: null },
     { id: "2", name: "PAN Details", file: null },
   ])
-  const [showAddDoc, setShowAddDoc] = useState(false)
-  const [showSuccess, setShowSuccess] = useState(false)
 
   const services: Option[] = [
     { id: "1", label: "Oil Change" },
@@ -382,6 +381,31 @@ export const EnquireManagement = ({ editMode = false, editData = null, onSaveCom
     { id: "2", label: "Honda Civic - XYZ789" },
     { id: "3", label: "Ford F-150 - DEF456" },
   ]
+  const [showAddDoc, setShowAddDoc] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [showClientModel, setShowClientModel] = useState(false)
+  const [showVehicleModel, setShowVehicleModel] = useState(false)
+
+
+  const [clientList, setClientList] = useState<Option[]>(clients);
+  const [vehicleList, setVehicleList] = useState<Option[]>(vehicles);
+
+  const saveNewClient = (name: string) => {
+    const newClient = { id: String(Date.now()), label: name };
+    setClientList((prev) => [...prev, newClient]);
+    setSelectedClient(newClient);
+    setShowClientModel(false);
+  };
+
+  const saveNewVehicle = (label: string) => {
+    const newVehicle = { id: String(Date.now()), label };
+    setVehicleList((prev) => [...prev, newVehicle]);
+    setSelectedVehicle(newVehicle);
+    setShowVehicleModel(false);
+  };
+
+
+
 
   const toggleService = (service: Option) => {
     setSelectedServices((prev) =>
@@ -406,7 +430,7 @@ export const EnquireManagement = ({ editMode = false, editData = null, onSaveCom
 
   const handleSave = () => {
     if (!selectedServices.length || !selectedClient) return
-    
+
     const enquiryData = {
       id: editData?.id || String(Date.now()),
       services: selectedServices,
@@ -416,11 +440,11 @@ export const EnquireManagement = ({ editMode = false, editData = null, onSaveCom
       createdAt: editData?.createdAt || new Date().toLocaleDateString(),
       status: editData?.status || 'pending'
     }
-    
+
     if (onSaveComplete) {
       onSaveComplete(enquiryData, editMode)
     }
-    
+
     setShowSuccess(true)
     setTimeout(() => setShowSuccess(false), 2000)
   }
@@ -429,14 +453,52 @@ export const EnquireManagement = ({ editMode = false, editData = null, onSaveCom
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">
-          {editMode ? 'Edit Enquiry' : 'New Enquiry'}
-        </h1>
-        <p className="text-slate-600 text-sm mt-1">
-          {editMode ? 'Update the enquiry details' : 'Fill in the details to create a new service enquiry'}
-        </p>
+      <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        {/* Left: Title */}
+        <div>
+          <h1 className="text-xl md:text-2xl font-bold text-slate-800">
+            {editMode ? "Edit Enquiry" : "New Enquiry"}
+          </h1>
+          <p className="text-slate-600 text-sm mt-1">
+            {editMode
+              ? "Update the enquiry details"
+              : "Fill in the details to create a new service enquiry"}
+          </p>
+        </div>
+
+        {/* Right: Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+          <button
+            onClick={() => setShowClientModel(true)}
+            className="bg-white text-blue-600 shadow-sm border cursor-pointer border-gray-200 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 w-full sm:w-auto"
+          >
+            Add Client
+          </button>
+
+          <button
+            onClick={() => setShowVehicleModel(true)}
+            className="bg-white text-blue-600 cursor-pointer shadow-sm border border-gray-200 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 w-full sm:w-auto"
+          >
+            Add Vehicle
+          </button>
+        </div>
       </div>
+
+
+      {showClientModel && (
+        <AddClientPopup
+          onClose={() => setShowClientModel(false)}
+          onSave={saveNewClient}
+        />
+      )}
+
+      {showVehicleModel && (
+        <AddVehiclePopup
+          onClose={() => setShowVehicleModel(false)}
+          onSave={saveNewVehicle}
+        />
+      )}
+
 
       <div className="bg-white rounded-2xl shadow-lg p-6 space-y-6">
         <Dropdown
@@ -546,3 +608,4 @@ export const EnquireManagement = ({ editMode = false, editData = null, onSaveCom
 }
 
 export default EnquireManagement
+
